@@ -1,0 +1,77 @@
+# import time
+# import sys
+
+# def typewriter(text, delay=0.08):
+#     for char in text:
+#         sys.stdout.write(char)
+#         sys.stdout.flush()
+#         time.sleep(delay)
+#     print()  # nouvelle ligne à la fin
+
+# phrase = "De l'automatique à la cybersécurité : sécuriser le futur"
+# typewriter(phrase, delay=0.06)
+
+
+
+import pygame
+import sys
+
+# Initialisation de Pygame
+pygame.init()
+
+# Configuration de la fenêtre
+WIDTH, HEIGHT = 900, 400
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Animation Texte avec Image et Couleur")
+
+# --- Charger l'image ---
+image = pygame.image.load("cyber.png")    # Nom exact de ton fichier
+image = pygame.transform.scale(image, (900, 400))  # (OPTIONNEL) redimensionner
+
+# Couleurs
+WHITE = (255, 255, 255)
+CYAN = (255, 0, 0)
+BLACK = (0, 0, 0)
+
+# Police
+font = pygame.font.SysFont("Arial", 32, bold=True)
+
+# Texte à afficher
+text = "De l'automatique à la cybersécurité : sécuriser le futur"
+
+# Variables pour l'effet machine à écrire
+current_text = ""
+index = 0
+clock = pygame.time.Clock()
+
+# Vitesse de frappe
+typing_speed = 5  # caractères par frame
+
+
+
+# Boucle principale
+running = True
+while running:
+    # Gestion des événements
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Affichage de l'image de fond
+    screen.blit(image, (9,9))
+
+    # Ajout de caractères progressivement
+    if index < len(text):
+        current_text += text[index]
+        index += 1
+
+    # Rendu du texte
+    rendered_text = font.render(current_text, True, CYAN)
+    screen.blit(rendered_text, (20, HEIGHT // 2 - 16))
+
+    # Actualisation de l'écran
+    pygame.display.flip()
+    clock.tick(10)  # vitesse globale de l'animation
+
+pygame.quit()
+sys.exit()

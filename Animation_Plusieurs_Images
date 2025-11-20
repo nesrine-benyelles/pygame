@@ -1,0 +1,40 @@
+import pygame
+pygame.init()
+
+screen = pygame.display.set_mode((640, 480))
+clock = pygame.time.Clock()
+
+# --- Charger les images de l'animation ---
+walk_images = [
+    pygame.image.load("arbre1.png"),
+    pygame.image.load("arbre2.png"),
+    pygame.image.load("arbre3.png"),
+    pygame.image.load("arbre4.png")
+]
+
+# Position du personnage
+x = 200
+y = 180
+
+# Animation
+frame = 0  # numéro d'image
+speed = 0.03 # vitesse de changement d'image
+
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill((30, 30, 30))
+
+    # --- Afficher l'image courante ---
+    image_index = int(frame) % len(walk_images)
+    screen.blit(walk_images[image_index], (x, y))
+
+    # --- Mise à jour de l'animation ---
+    frame += speed  # on avance dans les images
+
+    pygame.display.update()
+    clock.tick(60)  # limite à 60 FPS
